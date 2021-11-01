@@ -13,6 +13,7 @@ interface IArticle {
     val language: String
     val country: String
     val published_at: String
+    val isFavorite: Boolean
 }
 
 data class Article(
@@ -26,7 +27,9 @@ data class Article(
     override val category: String,
     override val language: String,
     override val country: String,
-    override val published_at: String
+    override val published_at: String,
+    override val isFavorite: Boolean
+
 ) : IArticle
 
 

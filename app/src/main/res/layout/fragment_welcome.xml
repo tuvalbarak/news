@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/common_medium_margin"
         android:text="Favorites"
-        app:icon="@drawable/ic_baseline_favorite_24"
+        app:icon="@drawable/favorite_button_on"
         android:layout_gravity="bottom|end"
         android:textAllCaps="false"
     />

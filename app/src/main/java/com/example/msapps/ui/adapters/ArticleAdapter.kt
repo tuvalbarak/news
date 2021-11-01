@@ -34,7 +34,9 @@ class ArticlesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             holder_row_article_author.text = article.author
             holder_row_article_category.text = article.category
 
-
+            holder_row_article_favorite_btn.setOnClickListener {
+                holder_row_article_favorite_btn.isActivated = !holder_row_article_favorite_btn.isActivated
+            }
         }
     }
 }

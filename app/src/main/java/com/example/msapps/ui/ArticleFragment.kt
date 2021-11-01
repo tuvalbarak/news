@@ -23,22 +23,22 @@ class ArticleFragment : BaseFragment() {
     private fun setupRecyclerView() {
 
         //Divider between items
-        fragment_articles_rv_articles.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+//        fragment_articles_rv_articles.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         //Bind the RecyclerView with the adapter
 //        fragment_welcome_rv_category.adapter = CategoryAdapter()
         val list: List<Article> = listOf(
             Article(1, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021"),
+                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", false),
             Article(2, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021"),
+                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", true),
             Article(3, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021"),
+                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", false),
             Article(4, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021"),
+                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", false),
             Article(5, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021"),
+                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", true),
             Article(6, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021")
+                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", false)
         )
 
 
