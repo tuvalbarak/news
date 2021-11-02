@@ -16,11 +16,11 @@ import kotlinx.android.synthetic.main.holder_row_article.view.*
  */
 object ArticleItemDiffCallback : DiffUtil.ItemCallback<Article>() {
     override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
-        return oldItem == newItem
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
-        return oldItem == newItem
+        return oldItem.id == newItem.id
     }
 }
 
@@ -34,6 +34,7 @@ class ArticlesViewHolder(itemView: View, private val onFavoriteClickListener: (a
     fun bind(article: Article) {
 
         itemView.apply {
+
             Glide.with(context).load(article.urlToImage).into(holder_row_article_image)
 //            holder_row_article_source.text = article.source?.name
             holder_row_article_published_at.text = article.publishedAt
@@ -41,6 +42,7 @@ class ArticlesViewHolder(itemView: View, private val onFavoriteClickListener: (a
             holder_row_article_description.text = article.description
             holder_row_article_author.text = article.author
             holder_row_article_category.text = "categoryyyy"
+//            holder_row_article_favorite_btn.isActivated = article.isFavorite
             //didnt bind content
 
 //            holder_row_article_favorite_btn.setOnClickListener { //Toggles the favorite button state

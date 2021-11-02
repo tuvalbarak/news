@@ -38,7 +38,14 @@ class ArticleFragment : BaseFragment() {
         val onFavoriteClicked: (article: Article) -> Unit = { article ->
             article.isFavorite = !article.isFavorite
             holder_row_article_favorite_btn.isActivated = !holder_row_article_favorite_btn.isActivated
-            Log.d(logTag, article.isFavorite.toString())
+            Log.d(logTag, article.title.toString())
+
+            if(article.isFavorite) {
+                articleViewModel.addArticleToFavorites(article)
+            } else {
+                articleViewModel.deleteFromFavorites(article)
+            }
+
         }
 
         //Binding the adapter with the recyclerview.
