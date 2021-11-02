@@ -13,6 +13,7 @@ import com.example.msapps.models.Category
 import com.example.msapps.ui.adapters.CategoriesAdapter
 import com.example.msapps.ui.extensions.gone
 import com.example.msapps.ui.extensions.show
+import com.example.msapps.utils.currentCategory
 import com.example.msapps.viewmodels.CategoryViewModel
 import com.example.msapps.viewmodels.States
 import com.example.msapps.viewmodels.ViewModelFactory
@@ -34,20 +35,24 @@ class CategoryFragment : BaseFragment() {
     }
 
     private fun setupRecyclerView() {
-        //Divider between items
+        //Using the default divider to be shown between items.
         fragment_category_rv_category.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-
+        //Using NavGraph to navigate between Fragments. Sending it to the adapter and it will be invoked after every click on a category.
         val onCategoryClicked: (category: Category) -> Unit = {
-            Log.d(logTag, it.category)
-            view?.findNavController()?.navigate(R.id.nav_dest_article_fragment) //Do I use Parcelize to send data to do I use VM?
+            Log.d(logTag, it.toString())
+            currentCategory = it.toString()
+            view?.findNavController()?.navigate(R.id.nav_dest_article_fragment)
         }
-
+        //Binding adapter and recyclerview.
         fragment_category_rv_category.adapter = CategoriesAdapter(onCategoryClicked)
 
     }
 
 
-
+    /**
+     * Observing the current app state.
+     * Using View extension functions (cleaner and easier to read) to change the visibility of the progress bar.
+     */
     private fun setupState() {
 
         categoryViewModel.state.observe(viewLifecycleOwner, Observer { state ->
@@ -69,7 +74,10 @@ class CategoryFragment : BaseFragment() {
         })
     }
 
-
+    /**
+     * Observing categoriesList, which holds the current list that needs to be displayed.
+     * Using submitList to achieve a better performance while changes occur.
+     */
     private fun setupCategoriesList() {
         categoryViewModel.categoriesList.observe(viewLifecycleOwner, Observer { categoriesList ->
             (fragment_category_rv_category.adapter as CategoriesAdapter).submitList(categoriesList)

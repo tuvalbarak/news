@@ -18,15 +18,19 @@ class CategoryViewModel(private val categoryRepo: CategoryRepo, app: Application
     val categoriesList = MutableLiveData<List<Category>>().apply {
         viewModelScope.launch(Dispatchers.IO) {
             state.postValue(States.Loading)
-            //Here I need to call repo to fetch data
+
             val list: List<Category> = listOf(
-                Category(1,"first"),
-                Category(2,"second"),
-                Category(3,"third"),
-                Category(4,"fourth"),
-                Category(5,"fifth")
+                    Category.Business,
+                    Category.Entertainment,
+                    Category.General,
+                    Category.Health,
+                    Category.Science,
+                    Category.Sports,
+                    Category.Technology
             )
+
             postValue(list)
+
             state.postValue(States.Idle)
         }
     }

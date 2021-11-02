@@ -1,47 +1,46 @@
 package com.example.msapps.models
 
-
 interface IArticle {
-    val id: Long
-    val author: String
-    val title: String
-    val description: String
-    val url: String
-    val source: String
-    val image: String
-    val category: String
-    val language: String
-    val country: String
-    val published_at: String
-    val isFavorite: Boolean
+    val source: Source?
+    val author: String?
+    val title: String?
+    val description: String?
+    val url: String?
+    val urlToImage: String?
+    val publishedAt: String?
+    val content: String?
 }
 
 data class Article(
-    override val id: Long,
-    override val author: String,
-    override val title: String,
-    override val description: String,
-    override val url: String,
-    override val source: String,
-    override val image: String,
-    override val category: String,
-    override val language: String,
-    override val country: String,
-    override val published_at: String,
-    override val isFavorite: Boolean
-
+    override val source: Source?,
+    override val author: String?,
+    override val title: String?,
+    override val description: String?,
+    override val url: String?,
+    override val urlToImage: String?,
+    override val publishedAt: String?,
+    override val content: String?
 ) : IArticle
 
+data class Source(
+    val id: String,
+    val name: String
+)
+
+//Creating a wrapper class to Article so I can use it in Retrofit
+data class ArticleResponse(
+    val articles: List<Article>
+)
 
 
-
-//"author": "Dan Peck",
-//"title": "Hurricane Hanna makes landfall around 5 p.m. on Saturday.",
-//"description": "Hurricane Hanna battered southern Texas with sustained winds of 75 mph and continued to deliver heavy rain and flash flooding as it moved inland late Saturday.",
-//"url": "https://abcnews.go.com/US/hurricane-hanna-makes-landfall-texas/story?id=71985566",
-//"source": "ABC News",
-//"image": "https://s.abcnews.com/images/US/hanna-swimmer-mo_hpMain_20200725-163152_2_4x3t_384.jpg",
-//"category": "general",
-//"language": "en",
-//"country": "us",
-//"published_at": "2020-07-26T01:04:23+00:00"
+//"source": {
+//    "id": "business-insider",
+//    "name": "Business Insider"
+//},
+//"author": "snagarajan@businessinsider.com (Shalini Nagarajan)",
+//"title": "Tesla falls as much as 5% after Elon Musk warns it hasn't yet signed the Hertz contract for a record-breaking 100,000 orders",
+//"description": "\"If any of this is based on Hertz, I'd like to emphasize that no contract has been signed yet,\" Musk said in reply to a comment about Tesla's bull run.",
+//"url": "https://markets.businessinsider.com/news/stocks/tesla-stock-price-elon-musk-hertz-contract-not-signed-yet-2021-11",
+//"urlToImage": "https://images2.markets.businessinsider.com/61810eb91037b100181550ca?format=jpeg",
+//"publishedAt": "2021-11-02T11:34:50Z",
+//"content": "Tesla CEO Elon Musk.\r\nMatt Rourke/AP Photo\r\nTesla shares fell as much as 5% in Tuesday's premarket session, after its CEO Elon Musk said the electric-vehicle maker has not yet signed a contract with … [+1903 chars]"

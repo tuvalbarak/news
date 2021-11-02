@@ -1,6 +1,7 @@
 package com.example.msapps.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -9,7 +10,7 @@ import com.example.msapps.repos.ArticleRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
+//Enum class that holds the app state.
 enum class States {
     Idle,
     Loading,
@@ -22,29 +23,33 @@ class ArticleViewModel(private val articleRepo: ArticleRepo, app: Application) :
         postValue(States.Idle)
     }
 
+    //Fetching data
     val articlesList = MutableLiveData<List<Article>>().apply {
         viewModelScope.launch(Dispatchers.IO) {
             state.postValue(States.Loading)
-            //Here I need to call repo to fetch data
-            val list: List<Article> = listOf(
-                Article(1, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                    "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", false),
-                Article(2, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                    "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", true),
-                Article(3, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                    "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", false),
-                Article(4, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                    "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", false),
-                Article(5, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                    "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", true),
-                Article(6, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                    "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", false)
-            )
-            postValue(list)
+
+            val response = articleRepo.getAllArticles()
+            Log.d("ArticleViewModel", response.body()?.articles?.size.toString())
+            postValue(response.body()?.articles)
+
+//            val list: List<Article> = listOf(
+//                    Article(Source("1", "tuval barak"), "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
+//                            "https://www.linkedin.com/in/tuval-barak" , "November, 1st 2021", "popo"),
+//                    Article(Source("2", "tuval barak"), "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
+//                            "https://www.linkedin.com/in/tuval-barak" , "November, 1st 2021", "popo"),
+//                    Article(Source("3", "tuval barak"), "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
+//                            "https://www.linkedin.com/in/tuval-barak" , "November, 1st 2021", "popo"),
+//                    Article(Source("4", "tuval barak"), "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
+//                    "https://www.linkedin.com/in/tuval-barak" , "November, 1st 2021", "popo"),
+//                    Article(Source("5", "tuval barak"), "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
+//                    "https://www.linkedin.com/in/tuval-barak" , "November, 1st 2021", "popo"),
+//                    Article(Source("6", "tuval barak"), "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
+//                            "https://www.linkedin.com/in/tuval-barak" , "November, 1st 2021", "popo"),
+//            )
+//            postValue(list)
+
             state.postValue(States.Idle)
         }
     }
-
-
 
 }

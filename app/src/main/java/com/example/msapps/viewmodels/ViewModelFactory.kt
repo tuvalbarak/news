@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.msapps.repos.RepoFactory
 
+/**
+ * Using the Factory design pattern for a scalable solution to VM approach.
+ */
 object ViewModelFactory {
     fun create(context: Context) : ViewModelProvider.AndroidViewModelFactory =
             ViewModelFactoryImpl(context.applicationContext as Application)
@@ -19,5 +22,4 @@ private class ViewModelFactoryImpl(val app: Application) : ViewModelProvider.And
         ArticleViewModel::class.java -> ArticleViewModel(RepoFactory.articleRepo, app) as T
         else -> throw NotImplementedError(modelClass.toString())
     }
-
 }

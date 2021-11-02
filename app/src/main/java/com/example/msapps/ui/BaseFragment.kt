@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
+/**
+ * Centralizes all the common things among the Fragments throughout the app.
+ */
 abstract class BaseFragment : Fragment() {
     abstract val layoutRes: Int
     abstract val logTag: String
