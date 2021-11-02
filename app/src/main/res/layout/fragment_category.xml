@@ -13,7 +13,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/fragment_welcome_title"
+        android:id="@+id/fragment_category_tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,21 +25,21 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_welcome_rv_category"
+        android:id="@+id/fragment_category_rv_category"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/common_large_margin"
         android:orientation="vertical"
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/fragment_welcome_title"
+        app:layout_constraintTop_toBottomOf="@id/fragment_category_tv_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
 
     <ProgressBar
-        android:id="@+id/fragment_welcome_pb_progress_bar"
+        android:id="@+id/fragment_category_pb_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +53,7 @@
 </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/fragment_welcome_fab_favorites"
+        android:id="@+id/fragment_category_fab_favorites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/common_medium_margin"

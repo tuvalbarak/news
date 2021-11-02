@@ -1,50 +1,66 @@
 package com.example.msapps.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.msapps.R
 import com.example.msapps.models.Article
 import com.example.msapps.ui.adapters.ArticlesAdapter
+import com.example.msapps.ui.extensions.gone
+import com.example.msapps.ui.extensions.show
+import com.example.msapps.viewmodels.ArticleViewModel
+import com.example.msapps.viewmodels.States
+import com.example.msapps.viewmodels.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_articles.*
+
 
 class ArticleFragment : BaseFragment() {
     override val layoutRes = R.layout.fragment_articles
     override val logTag = "ArticleFragment"
 
+    private val articleViewModel by lazy {
+        ViewModelProvider(this, ViewModelFactory.create(requireContext())).get(ArticleViewModel::class.java)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         setupRecyclerView()
-
+        setupState()
+        setupArticlesList()
     }
 
 
     private fun setupRecyclerView() {
-
-        //Divider between items
-//        fragment_articles_rv_articles.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-        //Bind the RecyclerView with the adapter
-//        fragment_welcome_rv_category.adapter = CategoryAdapter()
-        val list: List<Article> = listOf(
-            Article(1, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", false),
-            Article(2, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", true),
-            Article(3, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", false),
-            Article(4, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", false),
-            Article(5, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", true),
-            Article(6, "tuval barak", "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-                "https://www.linkedin.com/in/tuval-barak", "general", "en", "Israel", "November, 1st 2021", false)
-        )
-
-
         fragment_articles_rv_articles.adapter = ArticlesAdapter()
-        (fragment_articles_rv_articles.adapter as ArticlesAdapter).submitList(list)
+    }
 
 
+    private fun setupState() {
+
+        articleViewModel.state.observe(viewLifecycleOwner, Observer { state ->
+
+            when (state) {
+                States.Idle -> {
+                    Log.d(logTag, "Idle")
+                    fragment_category_pb_progress_bar.gone()
+                }
+                States.Loading -> {
+                    Log.d(logTag, "Loading")
+                    fragment_category_pb_progress_bar.show()
+                }
+                States.AddedToFavorites -> {
+                    Log.d(logTag, "AddedToFavorites")
+                    fragment_category_pb_progress_bar.gone()
+                }
+            }
+        })
+    }
+
+
+    private fun setupArticlesList() {
+        articleViewModel.articlesList.observe(viewLifecycleOwner, Observer { categoriesList ->
+            (fragment_articles_rv_articles.adapter as ArticlesAdapter).submitList(categoriesList)
+        })
     }
 }

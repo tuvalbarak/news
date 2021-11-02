@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.msapps.R
 import com.example.msapps.models.Category
-import kotlinx.android.synthetic.main.holder_row_welcome.view.*
+import kotlinx.android.synthetic.main.holder_row_category.view.*
 
 
 object CategoryItemDiffCallback : DiffUtil.ItemCallback<Category>() {
@@ -26,7 +26,7 @@ class CategoriesViewHolder(itemView: View, private val onClickListener: (categor
 
             itemView.apply {
 
-                holder_row_welcome_category.text = category.category
+                holder_row_category_tv_category.text = category.category
 
                 this.setOnClickListener {
                     category.let { clickedCategory -> onClickListener.invoke(clickedCategory) }
@@ -41,7 +41,7 @@ class CategoriesAdapter(private val onClickListener: (category: Category) -> Uni
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder =
         CategoriesViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.holder_row_welcome, parent, false), onClickListener
+            LayoutInflater.from(parent.context).inflate(R.layout.holder_row_category, parent, false), onClickListener
         )
 
     override fun onBindViewHolder(holder: CategoriesViewHolder, position: Int) {

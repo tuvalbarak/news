@@ -16,12 +16,12 @@ import com.example.msapps.ui.extensions.show
 import com.example.msapps.viewmodels.CategoryViewModel
 import com.example.msapps.viewmodels.States
 import com.example.msapps.viewmodels.ViewModelFactory
-import kotlinx.android.synthetic.main.fragment_welcome.*
+import kotlinx.android.synthetic.main.fragment_category.*
 
 
-class WelcomeFragment : BaseFragment() {
-    override val layoutRes = R.layout.fragment_welcome
-    override val logTag = "WelcomeFragment"
+class CategoryFragment : BaseFragment() {
+    override val layoutRes = R.layout.fragment_category
+    override val logTag = "CategoryFragment"
 
     private val categoryViewModel by lazy {
         ViewModelProvider(this, ViewModelFactory.create(requireContext())).get(CategoryViewModel::class.java)
@@ -35,14 +35,14 @@ class WelcomeFragment : BaseFragment() {
 
     private fun setupRecyclerView() {
         //Divider between items
-        fragment_welcome_rv_category.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        fragment_category_rv_category.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
 
         val onCategoryClicked: (category: Category) -> Unit = {
             Log.d(logTag, it.category)
             view?.findNavController()?.navigate(R.id.nav_dest_article_fragment) //Do I use Parcelize to send data to do I use VM?
         }
 
-        fragment_welcome_rv_category.adapter = CategoriesAdapter(onCategoryClicked)
+        fragment_category_rv_category.adapter = CategoriesAdapter(onCategoryClicked)
 
     }
 
@@ -55,15 +55,15 @@ class WelcomeFragment : BaseFragment() {
             when (state) {
                 States.Idle -> {
                     Log.d(logTag, "Idle")
-                    fragment_welcome_pb_progress_bar.gone()
+                    fragment_category_pb_progress_bar.gone()
                 }
                 States.Loading -> {
                     Log.d(logTag, "Loading")
-                    fragment_welcome_pb_progress_bar.show()
+                    fragment_category_pb_progress_bar.show()
                 }
                 States.AddedToFavorites -> {
                     Log.d(logTag, "AddedToFavorites")
-                    fragment_welcome_pb_progress_bar.gone()
+                    fragment_category_pb_progress_bar.gone()
                 }
             }
         })
@@ -72,7 +72,7 @@ class WelcomeFragment : BaseFragment() {
 
     private fun setupCategoriesList() {
         categoryViewModel.categoriesList.observe(viewLifecycleOwner, Observer { categoriesList ->
-            (fragment_welcome_rv_category.adapter as CategoriesAdapter).submitList(categoriesList)
+            (fragment_category_rv_category.adapter as CategoriesAdapter).submitList(categoriesList)
         })
     }
 
