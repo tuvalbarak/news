@@ -1,7 +1,9 @@
 package com.example.msapps.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 interface IArticle {
-    val source: Source?
     val author: String?
     val title: String?
     val description: String?
@@ -11,8 +13,11 @@ interface IArticle {
     val content: String?
 }
 
+@Entity(tableName = "favorites")
 data class Article(
-    override val source: Source?,
+    @PrimaryKey
+    val id: Long,
+    var isFavorite: Boolean,
     override val author: String?,
     override val title: String?,
     override val description: String?,

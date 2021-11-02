@@ -6,6 +6,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.msapps.R
+import com.example.msapps.models.Article
 import com.example.msapps.ui.adapters.ArticlesAdapter
 import com.example.msapps.ui.extensions.gone
 import com.example.msapps.ui.extensions.show
@@ -14,6 +15,7 @@ import com.example.msapps.viewmodels.ArticleViewModel
 import com.example.msapps.viewmodels.States
 import com.example.msapps.viewmodels.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_articles.*
+import kotlinx.android.synthetic.main.holder_row_article.*
 
 
 class ArticleFragment : BaseFragment() {
@@ -27,10 +29,20 @@ class ArticleFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         fragment_articles_tv_title.text = currentCategory //Setting Title
-        //Binding the adapter with the recyclerview.
-        fragment_articles_rv_articles.adapter = ArticlesAdapter()
+        setupRecyclerView()
         setupState()
         setupArticlesList()
+    }
+
+    private fun setupRecyclerView() {
+        val onFavoriteClicked: (article: Article) -> Unit = { article ->
+            article.isFavorite = !article.isFavorite
+            holder_row_article_favorite_btn.isActivated = !holder_row_article_favorite_btn.isActivated
+            Log.d(logTag, article.isFavorite.toString())
+        }
+
+        //Binding the adapter with the recyclerview.
+        fragment_articles_rv_articles.adapter = ArticlesAdapter(onFavoriteClicked)
     }
 
     /**

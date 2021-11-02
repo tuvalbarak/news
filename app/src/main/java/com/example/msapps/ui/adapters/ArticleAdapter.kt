@@ -28,13 +28,14 @@ object ArticleItemDiffCallback : DiffUtil.ItemCallback<Article>() {
  * @property itemView - current item in the recyclerview.
  * This class is responsible for binding the data for each row in the recyclerview.
  */
-class ArticlesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class ArticlesViewHolder(itemView: View, private val onFavoriteClickListener: (article: Article) -> Unit) :
+    RecyclerView.ViewHolder(itemView) {
     //Binding data
     fun bind(article: Article) {
 
         itemView.apply {
             Glide.with(context).load(article.urlToImage).into(holder_row_article_image)
-            holder_row_article_source.text = article.source?.name
+//            holder_row_article_source.text = article.source?.name
             holder_row_article_published_at.text = article.publishedAt
             holder_row_article_title.text = article.title
             holder_row_article_description.text = article.description
@@ -42,8 +43,11 @@ class ArticlesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             holder_row_article_category.text = "categoryyyy"
             //didnt bind content
 
-            holder_row_article_favorite_btn.setOnClickListener { //Toggles the favorite button state
-                holder_row_article_favorite_btn.isActivated = !holder_row_article_favorite_btn.isActivated
+//            holder_row_article_favorite_btn.setOnClickListener { //Toggles the favorite button state
+//                holder_row_article_favorite_btn.isActivated = !holder_row_article_favorite_btn.isActivated
+//            }
+            holder_row_article_favorite_btn.setOnClickListener {
+                article.let { favoriteClicked -> onFavoriteClickListener.invoke(favoriteClicked)}
             }
         }
     }
@@ -52,11 +56,12 @@ class ArticlesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 /**
  * Overriding ListAdapter's functions.
  */
-class ArticlesAdapter : ListAdapter<Article, ArticlesViewHolder>(ArticleItemDiffCallback) {
+class ArticlesAdapter(private val onFavoriteClickListener: (article: Article) -> Unit) :
+    ListAdapter<Article, ArticlesViewHolder>(ArticleItemDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticlesViewHolder =
         ArticlesViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.holder_row_article, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.holder_row_article, parent, false), onFavoriteClickListener
         )
     //Could have done binding here as well, chose to do it inside the ViewHolder for cleaner code.
     override fun onBindViewHolder(holder: ArticlesViewHolder, position: Int) {

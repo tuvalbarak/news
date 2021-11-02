@@ -28,7 +28,8 @@ object CategoryItemDiffCallback : DiffUtil.ItemCallback<Category>() {
  * @property onClickListener - lambda function for click handling.
  * This class is responsible for binding the data for each row in the recyclerview.
  */
-class CategoriesViewHolder(itemView: View, private val onClickListener: (category: Category) -> Unit) : RecyclerView.ViewHolder(itemView) {
+class CategoriesViewHolder(itemView: View, private val onClickListener: (category: Category) -> Unit) :
+    RecyclerView.ViewHolder(itemView) {
 
     fun bind(category: Category) {
 
