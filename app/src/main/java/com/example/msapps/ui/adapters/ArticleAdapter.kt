@@ -42,7 +42,7 @@ class ArticlesViewHolder(itemView: View, private val onFavoriteClickListener: (a
             holder_row_article_description.text = article.description
             holder_row_article_author.text = article.author
             holder_row_article_category.text = "categoryyyy"
-//            holder_row_article_favorite_btn.isActivated = article.isFavorite
+            holder_row_article_favorite_btn.isActivated = article.isFavorite
             //didnt bind content
 
 //            holder_row_article_favorite_btn.setOnClickListener { //Toggles the favorite button state

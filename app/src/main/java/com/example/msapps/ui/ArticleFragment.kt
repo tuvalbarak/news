@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.example.msapps.R
 import com.example.msapps.models.Article
 import com.example.msapps.ui.adapters.ArticlesAdapter
@@ -15,6 +16,8 @@ import com.example.msapps.viewmodels.ArticleViewModel
 import com.example.msapps.viewmodels.States
 import com.example.msapps.viewmodels.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_articles.*
+import kotlinx.android.synthetic.main.fragment_articles.fragment_category_pb_progress_bar
+import kotlinx.android.synthetic.main.fragment_category.*
 import kotlinx.android.synthetic.main.holder_row_article.*
 
 
@@ -71,6 +74,10 @@ class ArticleFragment : BaseFragment() {
                 }
                 States.AddedToFavorites -> {
                     Log.d(logTag, "AddedToFavorites")
+                    fragment_category_pb_progress_bar.gone()
+                }
+                States.DeletedFromFavorites -> {
+                    Log.d(logTag, "DeletedFromFavorites")
                     fragment_category_pb_progress_bar.gone()
                 }
             }

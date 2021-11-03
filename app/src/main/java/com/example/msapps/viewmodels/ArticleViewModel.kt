@@ -34,22 +34,6 @@ class ArticleViewModel(private val articleRepo: ArticleRepo, app: Application) :
             Log.d("ArticleViewModel", response.body()?.articles?.size.toString())
             postValue(response.body()?.articles)
 
-//            val list: List<Article> = listOf(
-//                    Article(Source("1", "tuval barak"), "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-//                            "https://www.linkedin.com/in/tuval-barak" , "November, 1st 2021", "popo"),
-//                    Article(Source("2", "tuval barak"), "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-//                            "https://www.linkedin.com/in/tuval-barak" , "November, 1st 2021", "popo"),
-//                    Article(Source("3", "tuval barak"), "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-//                            "https://www.linkedin.com/in/tuval-barak" , "November, 1st 2021", "popo"),
-//                    Article(Source("4", "tuval barak"), "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-//                    "https://www.linkedin.com/in/tuval-barak" , "November, 1st 2021", "popo"),
-//                    Article(Source("5", "tuval barak"), "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-//                    "https://www.linkedin.com/in/tuval-barak" , "November, 1st 2021", "popo"),
-//                    Article(Source("6", "tuval barak"), "creating app", "lorem ipsum dolorrrrrr", "invalid url", "BBC",
-//                            "https://www.linkedin.com/in/tuval-barak" , "November, 1st 2021", "popo"),
-//            )
-//            postValue(list)
-
             state.postValue(States.Idle)
         }
     }

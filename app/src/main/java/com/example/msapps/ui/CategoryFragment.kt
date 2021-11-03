@@ -29,6 +29,10 @@ class CategoryFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        //FAB click listener
+        fragment_category_fab_favorites.setOnClickListener {
+            view.findNavController().navigate(R.id.nav_dest_favorites_fragment)
+        }
         setupRecyclerView()
         setupState()
         setupCategoriesList()

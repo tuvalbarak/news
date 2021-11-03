@@ -20,6 +20,7 @@ private class ViewModelFactoryImpl(val app: Application) : ViewModelProvider.And
     override fun <T : ViewModel?> create(modelClass: Class<T>) : T = when(modelClass) {
         CategoryViewModel::class.java -> CategoryViewModel(RepoFactory.categoryRepo, app) as T
         ArticleViewModel::class.java -> ArticleViewModel(RepoFactory.articleRepo, app) as T
+        FavoriteViewModel::class.java -> FavoriteViewModel(RepoFactory.favoriteRepo, app) as T
         else -> throw NotImplementedError(modelClass.toString())
     }
 }

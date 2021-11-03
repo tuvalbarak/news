@@ -13,6 +13,10 @@
         <action
             android:id="@+id/nav_action_category_fragment"
             app:destination="@+id/nav_dest_article_fragment" />
+        <action
+            android:id="@+id/action_nav_dest_home_welcome_fragment_to_nav_dest_favorites_fragment"
+            app:destination="@id/nav_dest_favorites_fragment" />
+
 
     </fragment>
 
