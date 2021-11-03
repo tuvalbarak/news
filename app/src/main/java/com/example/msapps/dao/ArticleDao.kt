@@ -7,6 +7,9 @@ import androidx.room.Query
 import com.example.msapps.models.Article
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * DAO - Data Access Object - Gives access to Room DB.
+ */
 @Dao
 internal interface ArticleDao {
 
@@ -15,7 +18,8 @@ internal interface ArticleDao {
 
     @Delete
     fun deleteFavoriteArticle(article: Article)
-    //Sorting data from new to old
+
+    //Sorting articles from new to old
     @Query("SELECT * FROM favorites ORDER BY id DESC")
     fun getAllFavorites(): Flow<List<Article>>
 }

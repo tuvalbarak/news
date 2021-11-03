@@ -1,21 +1,28 @@
 package com.example.msapps.remote
 
-import okhttp3.OkHttpClient
+import android.util.Log
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ServiceBuilder {
+/**
+ * Implemented Retrofit creation as a Singleton, means it will only be initialized in its first use.
+ * Implemented the create function as generic to support code reuse and flexibility.
+ */
+internal interface ApiInterface {
 
-    private val client = OkHttpClient.Builder().build()
+    companion object {
 
-    private val retrofit = Retrofit.Builder()
-            .baseUrl("https://newsapi.org/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-            .build()
+        private const val baseUrl = "https://newsapi.org/"
+        private var retrofit: Retrofit? = null
 
-    fun <T> buildService(service: Class<T>) = retrofit.create(service)
-
+        fun <T> create(service: Class<T>): T = retrofit?.create(service) ?: run {
+            retrofit = Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+            retrofit!!.create(service)
+        }
+    }
 }
 
 
