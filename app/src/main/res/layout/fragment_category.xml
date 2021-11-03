@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/common_small_margin"
         style="@style/TextAppearance.Title"
-        android:text="Welcome! Choose a Category"
+        android:text="@string/welcome_message"
         />
 
     <androidx.recyclerview.widget.RecyclerView

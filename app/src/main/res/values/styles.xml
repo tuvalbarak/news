@@ -4,14 +4,14 @@
     <style name="TextAppearance.Title" parent="android:style/TextAppearance">
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textSize">@dimen/title_text_size</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/regular_text_color</item>
         <item name="android:textAlignment">center</item>
     </style>
 
     <style name="TextAppearance.RegularText" parent="android:style/TextAppearance">
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textSize">@dimen/regular_text_size</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/regular_text_color</item>
         <item name="android:textAlignment">center</item>
     </style>
 

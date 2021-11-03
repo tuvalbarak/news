@@ -1,5 +1,7 @@
 package com.example.msapps.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -34,6 +36,13 @@ class FavoriteFragment : BaseFragment() {
     }
 
     private fun setupRecyclerView() {
+
+        val onArticleClicked: (article: Article) -> Unit = { article ->
+            startActivity(
+                    Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
+            )
+        }
+
         val onFavoriteClicked: (article: Article) -> Unit = { article ->
             article.isFavorite = !article.isFavorite
             holder_row_article_favorite_btn.isActivated = !holder_row_article_favorite_btn.isActivated
@@ -42,7 +51,7 @@ class FavoriteFragment : BaseFragment() {
         }
 
         //Binding the adapter with the recyclerview.
-        fragment_favorites_rv_articles.adapter = ArticlesAdapter(onFavoriteClicked)
+        fragment_favorites_rv_articles.adapter = ArticlesAdapter(onArticleClicked, onFavoriteClicked)
     }
 
     /**

@@ -28,13 +28,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/common_small_margin"
             />
 
         <TextView
-            android:id="@+id/holder_row_article_source"
+            android:id="@+id/holder_row_article_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="source"
+            android:text="Author"
             android:textSize="@dimen/large_text_size"
             android:textStyle="bold"
             android:layout_marginTop="@dimen/common_medium_margin"
@@ -60,9 +61,9 @@
             android:layout_height="wrap_content"
             android:text="Title"
             android:textSize="@dimen/title_text_size"
-            android:textStyle="bold"
+            style="@style/TextAppearance.Title"
             android:layout_marginTop="@dimen/common_medium_margin"
-            app:layout_constraintTop_toBottomOf="@+id/holder_row_article_source"
+            app:layout_constraintTop_toBottomOf="@+id/holder_row_article_author"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             />
@@ -72,21 +73,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="description"
-            android:textSize="@dimen/regular_text_size"
-            android:textStyle="bold"
+            style="@style/TextAppearance.RegularText"
             app:layout_constraintTop_toBottomOf="@+id/holder_row_article_title"
-            app:layout_constraintStart_toStartOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/holder_row_article_author"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="author"
-            android:textSize="@dimen/regular_text_size"
-            android:textStyle="bold"
-            android:layout_marginTop="@dimen/common_large_margin"
-            app:layout_constraintTop_toBottomOf="@+id/holder_row_article_description"
             app:layout_constraintStart_toStartOf="parent"
             />
 
@@ -95,21 +83,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="category"
-            android:textSize="@dimen/regular_text_size"
-            android:textStyle="bold"
+            style="@style/TextAppearance.RegularText"
+            android:textColor="@color/secondary_text_color"
             android:layout_marginTop="@dimen/common_large_margin"
             app:layout_constraintTop_toBottomOf="@+id/holder_row_article_description"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             />
 
         <ImageView
             android:id="@+id/holder_row_article_favorite_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/holder_row_article_category"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/holder_row_article_description"
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/favorite_toggle_button"
+            android:layout_marginTop="@dimen/common_large_margin"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,11 +27,6 @@ data class Article(
     override val content: String?
 ) : IArticle
 
-data class Source(
-    val id: String,
-    val name: String
-)
-
 //Creating a wrapper class to Article so I can use it in Retrofit
 data class ArticleResponse(
     val articles: List<Article>

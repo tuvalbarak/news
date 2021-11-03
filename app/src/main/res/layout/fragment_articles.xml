@@ -22,7 +22,7 @@
         android:id="@+id/fragment_articles_rv_articles"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/common_small_margin"
+        android:layout_marginTop="@dimen/common_medium_margin"
         android:orientation="vertical"
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

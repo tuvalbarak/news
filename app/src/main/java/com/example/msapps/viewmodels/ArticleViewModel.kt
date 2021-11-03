@@ -66,7 +66,4 @@ class ArticleViewModel(private val articleRepo: ArticleRepo, app: Application) :
             state.postValue(States.Idle)
         }
     }
-
-
-
 }
