@@ -7,17 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.msapps.models.Article
 import com.example.msapps.repos.ArticleRepo
+import com.example.msapps.utils.States
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
-
-//Enum class that holds the app state.
-enum class States {
-    Idle,
-    Loading,
-    AddedToFavorites,
-    DeletedFromFavorites
-}
 
 class ArticleViewModel(private val articleRepo: ArticleRepo, app: Application) : AndroidViewModel(app) {
 
@@ -38,7 +31,7 @@ class ArticleViewModel(private val articleRepo: ArticleRepo, app: Application) :
         }
     }
 
-    val favoriesList = MutableLiveData<List<Article>>().apply {
+    val favoritesList = MutableLiveData<List<Article>>().apply {
         viewModelScope.launch(Dispatchers.IO) {
             state.postValue(States.Loading)
             articleRepo.getFavoritesArticles().collect { favorites ->

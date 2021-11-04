@@ -11,9 +11,9 @@ import com.example.msapps.models.Category
 import com.example.msapps.ui.adapters.CategoriesAdapter
 import com.example.msapps.ui.extensions.gone
 import com.example.msapps.ui.extensions.show
+import com.example.msapps.utils.States
 import com.example.msapps.utils.currentCategory
 import com.example.msapps.viewmodels.CategoryViewModel
-import com.example.msapps.viewmodels.States
 import com.example.msapps.viewmodels.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_category.*
 

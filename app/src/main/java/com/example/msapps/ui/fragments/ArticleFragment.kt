@@ -12,9 +12,9 @@ import com.example.msapps.models.Article
 import com.example.msapps.ui.adapters.ArticlesAdapter
 import com.example.msapps.ui.extensions.gone
 import com.example.msapps.ui.extensions.show
+import com.example.msapps.utils.States
 import com.example.msapps.utils.currentCategory
 import com.example.msapps.viewmodels.ArticleViewModel
-import com.example.msapps.viewmodels.States
 import com.example.msapps.viewmodels.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_articles.*
@@ -105,7 +105,7 @@ class ArticleFragment : BaseFragment() {
     private fun setupArticlesList() {
         //If favorites button was clicked on the previous fragment -> display favorites.
         if(ArticleFragmentArgs.fromBundle(requireArguments()).isFavorite) {
-            articleViewModel.favoriesList.observe(viewLifecycleOwner, Observer { categoriesList ->
+            articleViewModel.favoritesList.observe(viewLifecycleOwner, Observer { categoriesList ->
                 (fragment_articles_rv_articles.adapter as ArticlesAdapter).submitList(categoriesList)
             })
         } else { //Otherwise -> display the selected category.
