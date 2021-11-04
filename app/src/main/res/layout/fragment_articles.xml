@@ -33,7 +33,7 @@
         />
 
     <ProgressBar
-        android:id="@+id/fragment_category_pb_progress_bar"
+        android:id="@+id/fragment_article_pb_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"

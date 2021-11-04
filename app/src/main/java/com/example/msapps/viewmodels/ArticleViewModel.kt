@@ -22,21 +22,20 @@ class ArticleViewModel(private val articleRepo: ArticleRepo, app: Application) :
     val articlesList = MutableLiveData<List<Article>>().apply {
         viewModelScope.launch(Dispatchers.IO) {
             state.postValue(States.Loading)
-
             val response = articleRepo.getAllArticles()
-            Log.d("ArticleViewModel", response.body()?.articles?.size.toString())
             postValue(response.body()?.articles)
-
             state.postValue(States.Idle)
         }
     }
-
-    val favoritesList = MutableLiveData<List<Article>>().apply {
-        viewModelScope.launch(Dispatchers.IO) {
-            state.postValue(States.Loading)
-            articleRepo.getFavoritesArticles().collect { favorites ->
-                postValue(favorites)
-                state.postValue(States.Idle)
+    //Using lazy initialization for favoritesList, this way achieving better performance when there's no need to display favorites.
+    val favoritesList: MutableLiveData<List<Article>> by lazy {
+        MutableLiveData<List<Article>>().apply {
+            viewModelScope.launch(Dispatchers.IO) {
+                state.postValue(States.Loading)
+                articleRepo.getFavoritesArticles().collect { favorites ->
+                    postValue(favorites)
+                    state.postValue(States.Idle)
+                }
             }
         }
     }
@@ -67,6 +66,7 @@ class ArticleViewModel(private val articleRepo: ArticleRepo, app: Application) :
             articleRepo.deleteFavoriteArticle(article)
             state.postValue(States.DeletedFromFavorites)
             state.postValue(States.Idle)
+            Log.d("ArticleFragment", "5")
         }
     }
 }

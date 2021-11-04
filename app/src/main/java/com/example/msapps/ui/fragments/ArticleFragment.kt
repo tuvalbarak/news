@@ -18,7 +18,6 @@ import com.example.msapps.viewmodels.ArticleViewModel
 import com.example.msapps.viewmodels.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_articles.*
-import kotlinx.android.synthetic.main.fragment_articles.fragment_category_pb_progress_bar
 import kotlinx.android.synthetic.main.holder_row_article.*
 
 
@@ -80,19 +79,19 @@ class ArticleFragment : BaseFragment() {
             when (state) {
                 States.Idle -> {
                     Log.d(logTag, "Idle")
-                    fragment_category_pb_progress_bar.gone()
+                    fragment_article_pb_progress_bar.gone()
                 }
                 States.Loading -> {
                     Log.d(logTag, "Loading")
-                    fragment_category_pb_progress_bar.show()
+                    fragment_article_pb_progress_bar.show()
                 }
                 States.AddedToFavorites -> {
                     Log.d(logTag, "AddedToFavorites")
-                    fragment_category_pb_progress_bar.gone()
+                    fragment_article_pb_progress_bar.gone()
                 }
                 States.DeletedFromFavorites -> {
                     Log.d(logTag, "DeletedFromFavorites")
-                    fragment_category_pb_progress_bar.gone()
+                    fragment_article_pb_progress_bar.gone()
                 }
             }
         })
