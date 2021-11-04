@@ -1,22 +1,22 @@
 package com.example.msapps.repos
 
 import com.example.msapps.models.CategoryResponse
-import com.example.msapps.remote.ArticlesEndPoints
+import com.example.msapps.remote.ApiInterface
 import com.example.msapps.remote.CategoriesEndPoints
-//import com.example.msapps.remote.ServiceBuilder
 import retrofit2.Response
-import retrofit2.http.GET
 
-
+/**
+ * Even though I don't use the CategoryRepo in this app, I still built the structure in order to use it.
+ */
 interface CategoryRepo {
-//    suspend fun getAllCategories() : Response<CategoryResponse>
-//    suspend fun getAllCategories(): Response<CategoryResponse>
+    suspend fun getAllCategories(): Response<CategoryResponse>
 }
 
 internal object CategoryRepoImpl : CategoryRepo {
-//    override suspend fun getAllCategories() =
-//            ServiceBuilder.buildService(CategoriesEndPoints::class.java).getAllArticles()
-
-
+    private const val API_KEY = "dbb965a3892e4e948ef96bcb3ee21501"
+    override suspend fun getAllCategories() =
+            ApiInterface
+                .create(CategoriesEndPoints::class.java)
+                .getAllCategories(API_KEY)
 
 }

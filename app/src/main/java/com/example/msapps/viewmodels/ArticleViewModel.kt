@@ -7,9 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.msapps.models.Article
 import com.example.msapps.repos.ArticleRepo
-import com.example.msapps.repos.RepoFactory.favoriteRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collect
 
 //Enum class that holds the app state.
 enum class States {
@@ -38,6 +38,16 @@ class ArticleViewModel(private val articleRepo: ArticleRepo, app: Application) :
         }
     }
 
+    val favoriesList = MutableLiveData<List<Article>>().apply {
+        viewModelScope.launch(Dispatchers.IO) {
+            state.postValue(States.Loading)
+            articleRepo.getFavoritesArticles().collect { favorites ->
+                postValue(favorites)
+                state.postValue(States.Idle)
+            }
+        }
+    }
+
     fun addArticleToFavorites(article: Article) {
         viewModelScope.launch(Dispatchers.IO) {
             state.postValue(States.Loading)
@@ -52,7 +62,7 @@ class ArticleViewModel(private val articleRepo: ArticleRepo, app: Application) :
                 publishedAt = article.publishedAt,
                 content = article.content
             )
-            favoriteRepo.addArticleToFavorites(savedArticle)
+            articleRepo.addArticleToFavorites(savedArticle)
             state.postValue(States.AddedToFavorites)
             state.postValue(States.Idle)
         }
@@ -61,7 +71,7 @@ class ArticleViewModel(private val articleRepo: ArticleRepo, app: Application) :
     fun deleteFromFavorites(article: Article) {
         viewModelScope.launch(Dispatchers.IO) {
             state.postValue(States.Loading)
-            favoriteRepo.deleteFavoriteArticle(article)
+            articleRepo.deleteFavoriteArticle(article)
             state.postValue(States.DeletedFromFavorites)
             state.postValue(States.Idle)
         }

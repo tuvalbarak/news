@@ -1,5 +1,6 @@
 package com.example.msapps.ui.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +36,6 @@ class CategoriesViewHolder(itemView: View, private val onClickListener: (categor
 
         itemView.apply {
             holder_row_category_tv_category.text = category.toString() //Binding data
-
             this.setOnClickListener { //Setting click listener for each row
                 category.let { clickedCategory -> onClickListener.invoke(clickedCategory) }
             }

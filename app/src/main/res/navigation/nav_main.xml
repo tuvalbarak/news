@@ -7,38 +7,33 @@
 
     <fragment
         android:id="@+id/nav_dest_home_welcome_fragment"
-        android:name="com.example.msapps.ui.CategoryFragment"
+        android:name="com.example.msapps.ui.fragments.CategoryFragment"
         tools:layout="@layout/fragment_category">
 
         <action
             android:id="@+id/nav_action_category_fragment"
-            app:destination="@+id/nav_dest_article_fragment" />
-        <action
-            android:id="@+id/action_nav_dest_home_welcome_fragment_to_nav_dest_favorites_fragment"
-            app:destination="@id/nav_dest_favorites_fragment" />
-
+            app:destination="@+id/nav_dest_article_fragment">
+        <argument
+            android:name="is_favorite"
+            android:defaultValue="false"
+            app:argType="boolean"
+            />
+        </action>
 
     </fragment>
 
     <fragment
         android:id="@+id/nav_dest_article_fragment"
-        android:name="com.example.msapps.ui.ArticleFragment"
+        android:name="com.example.msapps.ui.fragments.ArticleFragment"
         tools:layout="@layout/fragment_articles">
 
         <argument
-            android:name="category"
-            app:nullable="true"
-            android:defaultValue="@null"
-            app:argType="string"
+            android:name="is_favorite"
+            android:defaultValue="false"
+            app:argType="boolean"
             />
 
     </fragment>
 
-    <fragment
-        android:id="@+id/nav_dest_favorites_fragment"
-        android:name="com.example.msapps.ui.FavoriteFragment"
-        tools:layout="@layout/fragment_favorites">
-
-    </fragment>
 
 </navigation>

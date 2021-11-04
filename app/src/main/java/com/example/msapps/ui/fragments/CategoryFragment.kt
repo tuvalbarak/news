@@ -1,4 +1,4 @@
-package com.example.msapps.ui
+package com.example.msapps.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -6,8 +6,6 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.msapps.R
 import com.example.msapps.models.Category
 import com.example.msapps.ui.adapters.CategoriesAdapter
@@ -31,7 +29,10 @@ class CategoryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //FAB click listener
         fragment_category_fab_favorites.setOnClickListener {
-            view.findNavController().navigate(R.id.nav_dest_favorites_fragment)
+            //Using SafeArgs to tell ArticleFragment that it needs to display favorites.
+            view.findNavController().navigate(
+                CategoryFragmentDirections.navActionCategoryFragment(true)
+            )
         }
         setupRecyclerView()
         setupState()
@@ -39,19 +40,15 @@ class CategoryFragment : BaseFragment() {
     }
 
     private fun setupRecyclerView() {
-        //Using the default divider to be shown between items.
-        fragment_category_rv_category.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         //Using NavGraph to navigate between Fragments. Sending it to the adapter and it will be invoked after every click on a category.
         val onCategoryClicked: (category: Category) -> Unit = {
             Log.d(logTag, it.toString())
-            currentCategory = it.toString()
+            currentCategory = it.toString() //Updating new category
             view?.findNavController()?.navigate(R.id.nav_dest_article_fragment)
         }
         //Binding adapter and recyclerview.
         fragment_category_rv_category.adapter = CategoriesAdapter(onCategoryClicked)
-
     }
-
 
     /**
      * Observing the current app state.

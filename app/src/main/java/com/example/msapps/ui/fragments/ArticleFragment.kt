@@ -1,4 +1,4 @@
-package com.example.msapps.ui
+package com.example.msapps.ui.fragments
 
 import android.content.Intent
 import android.net.Uri
@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import com.example.msapps.R
 import com.example.msapps.models.Article
 import com.example.msapps.ui.adapters.ArticlesAdapter
@@ -17,9 +16,9 @@ import com.example.msapps.utils.currentCategory
 import com.example.msapps.viewmodels.ArticleViewModel
 import com.example.msapps.viewmodels.States
 import com.example.msapps.viewmodels.ViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_articles.*
 import kotlinx.android.synthetic.main.fragment_articles.fragment_category_pb_progress_bar
-import kotlinx.android.synthetic.main.fragment_category.*
 import kotlinx.android.synthetic.main.holder_row_article.*
 
 
@@ -41,6 +40,7 @@ class ArticleFragment : BaseFragment() {
 
     private fun setupRecyclerView() {
 
+        //A click on an article will open it on the user's web browser.
         val onArticleClicked: (article: Article) -> Unit = { article ->
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
             startActivity(browserIntent)
@@ -53,14 +53,20 @@ class ArticleFragment : BaseFragment() {
 
             if(article.isFavorite) {
                 articleViewModel.addArticleToFavorites(article)
+                displaySnackbar(resources.getString(R.string.snackbar_add_message))
             } else {
                 articleViewModel.deleteFromFavorites(article)
+                displaySnackbar(resources.getString(R.string.snackbar_remove_message))
             }
 
         }
 
         //Binding the adapter with the recyclerview.
         fragment_articles_rv_articles.adapter = ArticlesAdapter(onArticleClicked, onFavoriteClicked)
+    }
+
+    private fun displaySnackbar(message: String) {
+        Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
     }
 
     /**
@@ -97,8 +103,15 @@ class ArticleFragment : BaseFragment() {
      * Using submitList to achieve a better performance while changes occur.
      */
     private fun setupArticlesList() {
-        articleViewModel.articlesList.observe(viewLifecycleOwner, Observer { categoriesList ->
-            (fragment_articles_rv_articles.adapter as ArticlesAdapter).submitList(categoriesList)
-        })
+        //If favorites button was clicked on the previous fragment -> display favorites.
+        if(ArticleFragmentArgs.fromBundle(requireArguments()).isFavorite) {
+            articleViewModel.favoriesList.observe(viewLifecycleOwner, Observer { categoriesList ->
+                (fragment_articles_rv_articles.adapter as ArticlesAdapter).submitList(categoriesList)
+            })
+        } else { //Otherwise -> display the selected category.
+            articleViewModel.articlesList.observe(viewLifecycleOwner, Observer { categoriesList ->
+                (fragment_articles_rv_articles.adapter as ArticlesAdapter).submitList(categoriesList)
+            })
+        }
     }
 }

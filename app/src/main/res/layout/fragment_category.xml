@@ -14,12 +14,11 @@
 
     <TextView
         android:id="@+id/fragment_category_tv_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/common_small_margin"
         style="@style/TextAppearance.Title"
         android:text="@string/welcome_message"
         />
@@ -46,9 +45,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:indeterminateTint="@color/primary_color"
         />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -61,6 +59,7 @@
         app:icon="@drawable/favorite_button_on"
         android:layout_gravity="bottom|end"
         android:textAllCaps="false"
+        android:backgroundTint="@color/primary_color"
     />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

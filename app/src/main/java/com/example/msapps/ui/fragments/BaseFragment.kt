@@ -1,4 +1,4 @@
-package com.example.msapps.ui
+package com.example.msapps.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

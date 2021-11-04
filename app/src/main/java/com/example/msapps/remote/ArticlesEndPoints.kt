@@ -9,10 +9,10 @@ import retrofit2.http.Query
 interface ArticlesEndPoints {
 
     @GET("v2/top-headlines")
-    suspend fun getAllArticles(@Query("category") category: String,
-                               @Query("country") country: String,
-                               @Query("apiKey") apiKey: String
-                        ): Response<ArticleResponse>
-
+    suspend fun getAllArticles(
+            @Query("category") category: String,
+            @Query("country") country: String,
+            @Query("apiKey") apiKey: String
+    ): Response<ArticleResponse>
 }
 
