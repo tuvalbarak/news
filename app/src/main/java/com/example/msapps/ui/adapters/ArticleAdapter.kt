@@ -19,13 +19,8 @@ import java.time.format.DateTimeFormatter
  * Using Diffutils to compare between two articles.
  */
 object ArticleItemDiffCallback : DiffUtil.ItemCallback<Article>() {
-    override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
-        return oldItem.id == newItem.id
-    }
+    override fun areItemsTheSame(oldItem: Article, newItem: Article) = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: Article, newItem: Article) = oldItem.id == newItem.id
 }
 
 /**
@@ -43,12 +38,13 @@ class ArticlesViewHolder(itemView: View,
 
         itemView.apply {
             //Parsing date. If SDK version is less than O, the date will be presented different (though still a readable date, but less concise).
-            var date = article.publishedAt
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val date = if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                article.publishedAt
+            } else {
                 val timestampAsDateString = article.publishedAt
                 val pattern = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
                 val format = DateTimeFormatter.ofPattern(pattern)
-                date = LocalDate.parse(timestampAsDateString, format).toString()
+                LocalDate.parse(timestampAsDateString, format).toString()
             }
 
             holder_row_article_author.text = article.author

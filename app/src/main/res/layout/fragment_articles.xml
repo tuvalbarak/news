@@ -19,6 +19,22 @@
         style="@style/TextAppearance.Title"
         />
 
+    <TextView
+        android:id="@+id/fragment_articles_tv_empty_favorites"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/fragment_articles_tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/empty_favorites"
+        style="@style/TextAppearance.Title"
+        android:visibility="gone"
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
+        android:duration="4500"
+        android:layout_marginTop="@dimen/common_large_margin"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_articles_rv_articles"
         android:layout_width="0dp"

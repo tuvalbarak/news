@@ -12,7 +12,7 @@ import com.example.msapps.R
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Vital settings that has to be done here - init()
+        //calling init function that will perform initial actions for running the app.
         Initializer.init(application)
         setContentView(R.layout.activity_main)
     }

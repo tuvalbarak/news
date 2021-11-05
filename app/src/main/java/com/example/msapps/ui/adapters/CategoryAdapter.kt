@@ -1,6 +1,5 @@
 package com.example.msapps.ui.adapters
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,13 +14,8 @@ import kotlinx.android.synthetic.main.holder_row_category.view.*
  * Using Diffutils to compare between two articles.
  */
 object CategoryItemDiffCallback : DiffUtil.ItemCallback<Category>() {
-    override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
-        return oldItem == newItem
-    }
-
-    override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
-        return oldItem == newItem
-    }
+    override fun areItemsTheSame(oldItem: Category, newItem: Category) = oldItem.name == newItem.name
+    override fun areContentsTheSame(oldItem: Category, newItem: Category) = oldItem.name == newItem.name
 }
 
 /**

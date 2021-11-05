@@ -4,7 +4,7 @@ import android.app.Application
 import com.example.msapps.repos.RepoFactory
 
 /**
- * Initializer contains necessary data in order to start the app (in this case it's pretty useless, but I think it's a good practice to use
+ * Initializer contains necessary data in order to start the app (in this case it seems useless, but I think it's a good practice to use
  * it this way).
  */
 object Initializer {

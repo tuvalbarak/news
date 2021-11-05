@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface ArticlesEndPoints {
 
     @GET("v2/top-headlines")
-    suspend fun getAllArticles(
+    suspend fun getAllArticlesByCategory(
             @Query("category") category: String,
             @Query("country") country: String,
             @Query("apiKey") apiKey: String

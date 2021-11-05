@@ -6,10 +6,10 @@ import com.example.msapps.remote.CategoriesEndPoints
 import retrofit2.Response
 
 /**
- * Even though I don't use the CategoryRepo in this app, I still built the structure in order to use it.
+ * Even though I don't use the CategoryRepo in this app, I still built the required structure in order to use it.
  */
 interface CategoryRepo {
-    suspend fun getAllCategories(): Response<CategoryResponse>
+    suspend fun getAllCategories(): Response<CategoryResponse> //Example function
 }
 
 internal object CategoryRepoImpl : CategoryRepo {

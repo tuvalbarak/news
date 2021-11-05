@@ -14,33 +14,28 @@ import retrofit2.Response
  */
 interface ArticleRepo {
     suspend fun getAllArticlesByCategory(category: Category): Response<ArticleResponse>
-    suspend fun getFavoritesArticles(): Flow<List<Article>>
     suspend fun getAllFavorites(): Flow<List<Article>>
     suspend fun addArticleToFavorites(article: Article)
-    suspend fun deleteFavoriteArticle(article: Article)
+    suspend fun deleteArticleFromFavorites(article: Article)
 }
 
 internal object ArticleRepoImpl : ArticleRepo {
     private const val COUNTRY = "us"
     private const val API_KEY = "dbb965a3892e4e948ef96bcb3ee21501"
     override suspend fun getAllArticlesByCategory(category: Category) =
-            ApiInterface
-                .create(ArticlesEndPoints::class.java)
-                .getAllArticles(category.toString(), COUNTRY, API_KEY)
+        ApiInterface
+            .create(ArticlesEndPoints::class.java)
+            .getAllArticlesByCategory(category.toString(), COUNTRY, API_KEY)
 
-    override suspend fun getFavoritesArticles() =
-            AppDatabase.instance().articleDao.getAllFavorites()
-
-    override suspend fun getAllFavorites() : Flow<List<Article>> =
-            AppDatabase.instance().articleDao.getAllFavorites()
+    override suspend fun getAllFavorites(): Flow<List<Article>> =
+        AppDatabase.instance().articleDao.getAllFavorites()
 
     override suspend fun addArticleToFavorites(article: Article) {
         AppDatabase.instance().articleDao.insertFavoriteArticle(article)
     }
 
-    override suspend fun deleteFavoriteArticle(article: Article) {
+    override suspend fun deleteArticleFromFavorites(article: Article) {
         AppDatabase.instance().articleDao.deleteFavoriteArticle(article)
     }
-
 
 }

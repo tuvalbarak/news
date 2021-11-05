@@ -2,8 +2,9 @@
     <string name="app_name">MSApps</string>
     <string name="welcome_message">Categories</string>
     <string name="categoty_name">Category Name</string>
-
     <string name="snackbar_add_message">Added Successfully</string>
     <string name="snackbar_remove_message">Removed Successfully</string>
+    <string name="empty_favorites">Your Favorites list appears to be empty </string>
+
 
 </resources>

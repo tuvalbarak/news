@@ -14,6 +14,6 @@ abstract class BaseFragment : Fragment() {
     abstract val logTag: String
 
     final override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(layoutRes, container, false)
+        inflater.inflate(layoutRes, container, false)
 
 }

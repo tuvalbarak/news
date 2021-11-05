@@ -13,12 +13,13 @@ import kotlinx.coroutines.flow.Flow
  */
 @Dao
 internal interface ArticleDao {
-
+    //If a user tries to add an already existing article, replace it with the new one.
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFavoriteArticle(article: Article)
 
     @Delete
     fun deleteFavoriteArticle(article: Article)
+
     //Sorting favorites from latest to oldest
     @Query("SELECT * FROM favorites ORDER BY timeStampAdded DESC")
     fun getAllFavorites(): Flow<List<Article>>

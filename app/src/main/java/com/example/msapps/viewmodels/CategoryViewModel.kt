@@ -11,7 +11,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
- * Note: even though I don't use the categoryRepo, I still get it in the constructor to demonstrate a situation where I get the various categories from the API.
+ * Note: even though I don't use the categoryRepo, I still get categoryRepo in the constructor to demonstrate
+ * a real situation where I get the various categories from the API.
  */
 class CategoryViewModel(private val categoryRepo: CategoryRepo, app: Application) : AndroidViewModel(app) {
 

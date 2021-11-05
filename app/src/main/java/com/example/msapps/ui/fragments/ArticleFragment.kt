@@ -38,8 +38,7 @@ class ArticleFragment : BaseFragment() {
     }
 
     private fun setupRecyclerView() {
-
-        //A click on an article will open it on the user's web browser.
+        //Using Implicit Intent to allow the user open the article in his browser.
         val onArticleClicked: (article: Article) -> Unit = { article ->
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
             startActivity(browserIntent)
@@ -52,10 +51,8 @@ class ArticleFragment : BaseFragment() {
 
             if(article.isFavorite) {
                 articleViewModel.addArticleToFavorites(article)
-                displaySnackbar(resources.getString(R.string.snackbar_add_message))
             } else {
                 articleViewModel.deleteFromFavorites(article)
-                displaySnackbar(resources.getString(R.string.snackbar_remove_message))
             }
         }
 
@@ -87,10 +84,12 @@ class ArticleFragment : BaseFragment() {
                 States.AddedToFavorites -> {
                     Log.d(logTag, "AddedToFavorites")
                     fragment_article_pb_progress_bar.gone()
+                    displaySnackbar(resources.getString(R.string.snackbar_add_message))
                 }
                 States.DeletedFromFavorites -> {
                     Log.d(logTag, "DeletedFromFavorites")
                     fragment_article_pb_progress_bar.gone()
+                    displaySnackbar(resources.getString(R.string.snackbar_remove_message))
                 }
             }
         })
@@ -102,17 +101,24 @@ class ArticleFragment : BaseFragment() {
      */
     private fun setupArticlesList() {
         //If favorites button was clicked on the previous fragment -> display favorites.
+        //Getting the value sent via SafeArgs (represents category/favorites from the previous fragment).
         val category = ArticleFragmentArgs.fromBundle(requireArguments()).category
-        if(!Category.values().map { it.name }.contains(category)) {
-            articleViewModel.currCategory = null
+
+        if(!Category.values().map { it.name }.contains(category)) { //Favorites
             articleViewModel.favoritesList.observe(viewLifecycleOwner, Observer { categoriesList ->
                 (fragment_articles_rv_articles.adapter as ArticlesAdapter).submitList(categoriesList)
+                //If there are not favorites -> display a message.
+                fragment_articles_tv_empty_favorites.apply {
+                    if(categoriesList.isEmpty()) show()
+                    else gone()
+                }
             })
         } else { //Otherwise -> display the selected category.
-            articleViewModel.currCategory = Category.valueOf(category)
+            articleViewModel.currCategory = Category.valueOf(category) //Parse the category to a Category type.
             articleViewModel.articlesList.observe(viewLifecycleOwner, Observer { categoriesList ->
                 (fragment_articles_rv_articles.adapter as ArticlesAdapter).submitList(categoriesList)
             })
         }
     }
+
 }

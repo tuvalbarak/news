@@ -3,6 +3,7 @@ package com.example.msapps.models
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+//Using interface for scalability
 interface IArticle {
     val author: String?
     val title: String?

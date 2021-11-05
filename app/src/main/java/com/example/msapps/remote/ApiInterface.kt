@@ -4,8 +4,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
- * Implemented Retrofit creation as a Singleton, means it will only be initialized in its first use.
- * Implemented the create function as generic to support code reuse and flexibility.
+ * Implemented Retrofit creation as a Singleton, means it will only be initialized on its first use.
+ * Implemented a generic create function to support code reuse and flexibility.
  */
 internal interface ApiInterface {
 

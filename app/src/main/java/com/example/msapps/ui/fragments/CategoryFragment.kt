@@ -69,6 +69,10 @@ class CategoryFragment : BaseFragment() {
                     Log.d(logTag, "AddedToFavorites")
                     fragment_category_pb_progress_bar.gone()
                 }
+                States.DeletedFromFavorites -> {
+                    Log.d(logTag, "DeletedFromFavorites")
+                    fragment_category_pb_progress_bar.gone()
+                }
             }
         })
     }
