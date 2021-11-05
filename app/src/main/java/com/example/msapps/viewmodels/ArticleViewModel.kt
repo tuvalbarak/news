@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.msapps.models.Article
 import com.example.msapps.repos.ArticleRepo
 import com.example.msapps.utils.States
+import com.example.msapps.utils.currentCategory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
@@ -22,7 +23,12 @@ class ArticleViewModel(private val articleRepo: ArticleRepo, app: Application) :
     val articlesList = MutableLiveData<List<Article>>().apply {
         viewModelScope.launch(Dispatchers.IO) {
             state.postValue(States.Loading)
-            val response = articleRepo.getAllArticles()
+            //Getting articles, then initializing the id of each of them (id will be equal to the article url).
+            val response = articleRepo.getAllArticles().apply {
+                body()?.articles?.forEach { article ->
+                    article.id = article.url.toString()
+                }
+            }
             postValue(response.body()?.articles)
             state.postValue(States.Idle)
         }
@@ -39,12 +45,12 @@ class ArticleViewModel(private val articleRepo: ArticleRepo, app: Application) :
             }
         }
     }
-
+    //Adding new article to DB.
     fun addArticleToFavorites(article: Article) {
         viewModelScope.launch(Dispatchers.IO) {
             state.postValue(States.Loading)
             val savedArticle = Article(
-                id = System.currentTimeMillis(),
+                id = article.id,
                 isFavorite = article.isFavorite,
                 author = article.author,
                 title = article.title,
@@ -66,7 +72,6 @@ class ArticleViewModel(private val articleRepo: ArticleRepo, app: Application) :
             articleRepo.deleteFavoriteArticle(article)
             state.postValue(States.DeletedFromFavorites)
             state.postValue(States.Idle)
-            Log.d("ArticleFragment", "5")
         }
     }
 }

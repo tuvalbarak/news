@@ -1,9 +1,10 @@
 package com.example.msapps.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
+import androidx.room.OnConflictStrategy
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Dao
+import androidx.room.Delete
 import com.example.msapps.models.Article
 import kotlinx.coroutines.flow.Flow
 
@@ -13,13 +14,12 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 internal interface ArticleDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFavoriteArticle(article: Article)
 
     @Delete
     fun deleteFavoriteArticle(article: Article)
 
-    //Sorting articles from new to old
-    @Query("SELECT * FROM favorites ORDER BY id DESC")
+    @Query("SELECT * FROM favorites ORDER BY publishedAt ASC")
     fun getAllFavorites(): Flow<List<Article>>
 }

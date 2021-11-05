@@ -4,7 +4,6 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -44,7 +43,7 @@ class ArticlesViewHolder(itemView: View,
     fun bind(article: Article) {
 
         itemView.apply {
-            //Parsing date
+            //Parsing date. If SDK version is less than O, the date will be presented different (though still a readable date, but less concise).
             var date = article.publishedAt
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val timestampAsDateString = article.publishedAt
@@ -58,13 +57,13 @@ class ArticlesViewHolder(itemView: View,
             holder_row_article_published_at.text =  date
             holder_row_article_category.text = currentCategory
             holder_row_article_favorite_btn.isActivated = article.isFavorite
-
+            //Using Glide library to efficiently load the article's image.
             Glide.with(context).load(article.urlToImage).into(holder_row_article_image)
-
+            //Click listener for the entire object.
             this.setOnClickListener {
                 article.let { articleClicked -> onArticleClickListener.invoke(articleClicked)}
             }
-
+            //Click listener for the favorites icon.
             holder_row_article_favorite_btn.setOnClickListener {
                 article.let { favoriteClicked -> onFavoriteClickListener.invoke(favoriteClicked)}
             }

@@ -10,7 +10,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 internal interface ApiInterface {
 
     companion object {
-
         private const val baseUrl = "https://newsapi.org/"
         private var retrofit: Retrofit? = null
 

@@ -16,7 +16,7 @@ interface IArticle {
 @Entity(tableName = "favorites")
 data class Article(
     @PrimaryKey
-    val id: Long,
+    var id: String,
     var isFavorite: Boolean,
     override val author: String?,
     override val title: String?,

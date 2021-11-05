@@ -44,7 +44,7 @@ class ArticleFragment : BaseFragment() {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
             startActivity(browserIntent)
         }
-
+        //A click on the favorite icon will add the article to the favorites list
         val onFavoriteClicked: (article: Article) -> Unit = { article ->
             article.isFavorite = !article.isFavorite
             holder_row_article_favorite_btn.isActivated = !holder_row_article_favorite_btn.isActivated
@@ -57,7 +57,6 @@ class ArticleFragment : BaseFragment() {
                 articleViewModel.deleteFromFavorites(article)
                 displaySnackbar(resources.getString(R.string.snackbar_remove_message))
             }
-
         }
 
         //Binding the adapter with the recyclerview.
