@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.msapps.R
 import com.example.msapps.models.Article
-import com.example.msapps.utils.currentCategory
 import kotlinx.android.synthetic.main.holder_row_article.view.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -55,7 +54,7 @@ class ArticlesViewHolder(itemView: View,
             holder_row_article_title.text = article.title
             holder_row_article_description.text = article.description
             holder_row_article_published_at.text =  date
-            holder_row_article_category.text = currentCategory
+            holder_row_article_category.text = article.category
             holder_row_article_favorite_btn.isActivated = article.isFavorite
             //Using Glide library to efficiently load the article's image.
             Glide.with(context).load(article.urlToImage).into(holder_row_article_image)

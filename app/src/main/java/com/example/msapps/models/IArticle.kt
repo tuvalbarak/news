@@ -18,6 +18,8 @@ data class Article(
     @PrimaryKey
     var id: String,
     var isFavorite: Boolean,
+    var category: String,
+    var timeStampAdded: Long,
     override val author: String?,
     override val title: String?,
     override val description: String?,

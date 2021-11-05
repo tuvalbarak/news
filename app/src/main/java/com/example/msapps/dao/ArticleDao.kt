@@ -19,7 +19,7 @@ internal interface ArticleDao {
 
     @Delete
     fun deleteFavoriteArticle(article: Article)
-
-    @Query("SELECT * FROM favorites ORDER BY publishedAt ASC")
+    //Sorting favorites from latest to oldest
+    @Query("SELECT * FROM favorites ORDER BY timeStampAdded DESC")
     fun getAllFavorites(): Flow<List<Article>>
 }

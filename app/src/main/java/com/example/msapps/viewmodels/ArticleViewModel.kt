@@ -1,14 +1,13 @@
 package com.example.msapps.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.msapps.models.Article
+import com.example.msapps.models.Category
 import com.example.msapps.repos.ArticleRepo
 import com.example.msapps.utils.States
-import com.example.msapps.utils.currentCategory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
@@ -19,14 +18,18 @@ class ArticleViewModel(private val articleRepo: ArticleRepo, app: Application) :
         postValue(States.Idle)
     }
 
+    var currCategory: Category? = null
+
     //Fetching data
     val articlesList = MutableLiveData<List<Article>>().apply {
         viewModelScope.launch(Dispatchers.IO) {
             state.postValue(States.Loading)
             //Getting articles, then initializing the id of each of them (id will be equal to the article url).
-            val response = articleRepo.getAllArticles().apply {
+            val response = articleRepo.getAllArticlesByCategory(currCategory ?: Category.Business).apply {
                 body()?.articles?.forEach { article ->
                     article.id = article.url.toString()
+                    article.category = (currCategory?.name) ?: "Favorites"
+                    article.timeStampAdded = System.currentTimeMillis()
                 }
             }
             postValue(response.body()?.articles)
@@ -52,6 +55,8 @@ class ArticleViewModel(private val articleRepo: ArticleRepo, app: Application) :
             val savedArticle = Article(
                 id = article.id,
                 isFavorite = article.isFavorite,
+                category = article.category,
+                timeStampAdded = article.timeStampAdded,
                 author = article.author,
                 title = article.title,
                 description = article.description,

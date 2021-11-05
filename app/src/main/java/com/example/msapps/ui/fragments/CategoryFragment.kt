@@ -12,7 +12,6 @@ import com.example.msapps.ui.adapters.CategoriesAdapter
 import com.example.msapps.ui.extensions.gone
 import com.example.msapps.ui.extensions.show
 import com.example.msapps.utils.States
-import com.example.msapps.utils.currentCategory
 import com.example.msapps.viewmodels.CategoryViewModel
 import com.example.msapps.viewmodels.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_category.*
@@ -30,9 +29,7 @@ class CategoryFragment : BaseFragment() {
         //FAB click listener
         fragment_category_fab_favorites.setOnClickListener {
             //Using SafeArgs to tell ArticleFragment that it needs to display favorites.
-            view.findNavController().navigate(
-                CategoryFragmentDirections.navActionCategoryFragment(true)
-            )
+            view.findNavController().navigate(R.id.nav_dest_article_fragment)
         }
         setupRecyclerView()
         setupState()
@@ -43,8 +40,9 @@ class CategoryFragment : BaseFragment() {
         //Using NavGraph to navigate between Fragments. Sending it to the adapter and it will be invoked after every click on a category.
         val onCategoryClicked: (category: Category) -> Unit = {
             Log.d(logTag, it.toString())
-            currentCategory = it.toString() //Updating new category
-            view?.findNavController()?.navigate(R.id.nav_dest_article_fragment)
+            view?.findNavController()?.navigate(
+                    CategoryFragmentDirections.navActionCategoryFragment(it.toString())
+            )
         }
         //Binding adapter and recyclerview.
         fragment_category_rv_category.adapter = CategoriesAdapter(onCategoryClicked)

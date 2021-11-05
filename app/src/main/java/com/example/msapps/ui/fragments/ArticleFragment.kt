@@ -9,11 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.msapps.R
 import com.example.msapps.models.Article
+import com.example.msapps.models.Category
 import com.example.msapps.ui.adapters.ArticlesAdapter
 import com.example.msapps.ui.extensions.gone
 import com.example.msapps.ui.extensions.show
 import com.example.msapps.utils.States
-import com.example.msapps.utils.currentCategory
 import com.example.msapps.viewmodels.ArticleViewModel
 import com.example.msapps.viewmodels.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -31,7 +31,7 @@ class ArticleFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        fragment_articles_tv_title.text = currentCategory //Setting Title
+        fragment_articles_tv_title.text = ArticleFragmentArgs.fromBundle(requireArguments()).category
         setupRecyclerView()
         setupState()
         setupArticlesList()
@@ -102,11 +102,14 @@ class ArticleFragment : BaseFragment() {
      */
     private fun setupArticlesList() {
         //If favorites button was clicked on the previous fragment -> display favorites.
-        if(ArticleFragmentArgs.fromBundle(requireArguments()).isFavorite) {
+        val category = ArticleFragmentArgs.fromBundle(requireArguments()).category
+        if(!Category.values().map { it.name }.contains(category)) {
+            articleViewModel.currCategory = null
             articleViewModel.favoritesList.observe(viewLifecycleOwner, Observer { categoriesList ->
                 (fragment_articles_rv_articles.adapter as ArticlesAdapter).submitList(categoriesList)
             })
         } else { //Otherwise -> display the selected category.
+            articleViewModel.currCategory = Category.valueOf(category)
             articleViewModel.articlesList.observe(viewLifecycleOwner, Observer { categoriesList ->
                 (fragment_articles_rv_articles.adapter as ArticlesAdapter).submitList(categoriesList)
             })

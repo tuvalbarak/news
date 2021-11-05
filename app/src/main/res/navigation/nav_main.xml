@@ -13,11 +13,12 @@
         <action
             android:id="@+id/nav_action_category_fragment"
             app:destination="@+id/nav_dest_article_fragment">
-        <argument
-            android:name="is_favorite"
-            android:defaultValue="false"
-            app:argType="boolean"
-            />
+
+            <argument
+                android:name="category"
+                android:defaultValue="Favorites"
+                app:argType="string"
+                />
         </action>
 
     </fragment>
@@ -28,9 +29,9 @@
         tools:layout="@layout/fragment_articles">
 
         <argument
-            android:name="is_favorite"
-            android:defaultValue="false"
-            app:argType="boolean"
+            android:name="category"
+            android:defaultValue="Favorites"
+            app:argType="string"
             />
 
     </fragment>
