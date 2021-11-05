@@ -46,7 +46,8 @@ class ArticlesViewHolder(itemView: View,
             var date = article.publishedAt
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val timestampAsDateString = article.publishedAt
-                val format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZZZZZ")
+                val pattern = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+                val format = DateTimeFormatter.ofPattern(pattern)
                 date = LocalDate.parse(timestampAsDateString, format).toString()
             }
 

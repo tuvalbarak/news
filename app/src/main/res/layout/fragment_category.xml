@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/common_medium_margin"
+    android:background="@color/black"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,6 +61,8 @@
         android:layout_gravity="bottom|end"
         android:textAllCaps="false"
         android:backgroundTint="@color/primary_color"
+        android:textColor="@color/white"
+        app:iconTint="@color/white"
     />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -11,6 +11,7 @@
     app:contentPadding="@dimen/common_small_margin"
     app:strokeColor="@color/primary_color"
     app:strokeWidth="1dp"
+    android:backgroundTint="@color/items_background"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,6 +24,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="Article Image"
             android:background="@drawable/default_image"
+            android:backgroundTint="@color/black"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,6 +38,7 @@
             android:text="Author"
             android:textSize="@dimen/large_text_size"
             android:textStyle="bold"
+            android:textColor="@color/text_secondary"
             android:layout_marginTop="@dimen/common_medium_margin"
             app:layout_constraintTop_toBottomOf="@id/holder_row_article_image"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +51,7 @@
             android:text="Date"
             android:textSize="@dimen/regular_text_size"
             android:textStyle="bold"
+            android:textColor="@color/text_secondary"
             android:layout_marginTop="@dimen/common_medium_margin"
             app:layout_constraintTop_toBottomOf="@id/holder_row_article_image"
             app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +86,7 @@
             android:layout_height="wrap_content"
             android:text="category"
             style="@style/TextAppearance.RegularText"
-            android:textColor="@color/secondary_text_color"
+            android:textColor="@color/text_secondary"
             android:layout_marginTop="@dimen/common_large_margin"
             app:layout_constraintTop_toBottomOf="@+id/holder_row_article_description"
             app:layout_constraintStart_toStartOf="parent"
