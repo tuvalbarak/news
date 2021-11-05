@@ -23,4 +23,9 @@ internal interface ArticleDao {
     //Sorting favorites from latest to oldest
     @Query("SELECT * FROM favorites ORDER BY timeStampAdded DESC")
     fun getAllFavorites(): Flow<List<Article>>
+
+    //Fetch the required article
+    @Query("SELECT * FROM favorites WHERE id = :id")
+    fun getFavoriteById(id: String): Article?
+
 }

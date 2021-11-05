@@ -15,6 +15,7 @@ import retrofit2.Response
 interface ArticleRepo {
     suspend fun getAllArticlesByCategory(category: Category): Response<ArticleResponse>
     suspend fun getAllFavorites(): Flow<List<Article>>
+    suspend fun getFavoriteById(id: String): Article?
     suspend fun addArticleToFavorites(article: Article)
     suspend fun deleteArticleFromFavorites(article: Article)
 }
@@ -29,6 +30,9 @@ internal object ArticleRepoImpl : ArticleRepo {
 
     override suspend fun getAllFavorites(): Flow<List<Article>> =
         AppDatabase.instance().articleDao.getAllFavorites()
+
+    override suspend fun getFavoriteById(id: String) =
+        AppDatabase.instance().articleDao.getFavoriteById(id)
 
     override suspend fun addArticleToFavorites(article: Article) {
         AppDatabase.instance().articleDao.insertFavoriteArticle(article)

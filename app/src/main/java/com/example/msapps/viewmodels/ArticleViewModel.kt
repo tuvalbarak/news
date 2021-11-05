@@ -1,6 +1,7 @@
 package com.example.msapps.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -32,6 +33,11 @@ class ArticleViewModel(private val articleRepo: ArticleRepo, app: Application) :
                     article.id = article.url.toString()
                     article.category = (currCategory.name)
                     article.timeStampAdded = System.currentTimeMillis()
+
+                    //If an article is on the user's favorites, assign isFavorite to true.
+                    articleRepo.getFavoriteById(article.id)?.id?.let {
+                        article.isFavorite = true
+                    }
                 }
             }
             postValue(response.body()?.articles)
