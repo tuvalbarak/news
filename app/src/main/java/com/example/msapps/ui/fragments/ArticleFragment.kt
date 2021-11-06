@@ -37,7 +37,6 @@ class ArticleFragment : BaseFragment() {
         setupArticlesList()
     }
 
-    @SuppressLint("QueryPermissionsNeeded")
     private fun setupRecyclerView() {
         //Using Implicit Intent to allow the user open the article in his browser.
         val onArticleClicked: (article: Article) -> Unit = { article ->
@@ -127,5 +126,4 @@ class ArticleFragment : BaseFragment() {
             }
         }
     }
-
 }

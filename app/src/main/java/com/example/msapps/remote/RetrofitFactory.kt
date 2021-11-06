@@ -8,7 +8,7 @@ internal lateinit var articlesAPI: ArticlesEndPoints
 internal lateinit var categoriesAPI: CategoriesEndPoints
 
 /**
- * Implemented Retrofit creation as a Singleton, means it will only be initialized on its first use.
+ * Implemented Retrofit creation as a Singleton, Used the Factory design pattern to achieve reuse of my code scalability.
  * Implemented a generic create function to support code reuse and flexibility.
  */
 object RetrofitFactory {
@@ -19,7 +19,7 @@ object RetrofitFactory {
     //Whenever a new endpoints wi be added - it needs to be added to the configure function
     fun configure() {
         articlesAPI = create(ArticlesEndPoints::class.java)
-        categoriesAPI = create(CategoriesEndPoints::class.java)
+        categoriesAPI = create(CategoriesEndPoints::class.java) //Not used, again - created the structure as if I could use it.
     }
 
     //Generic function to create the Retrofit service
