@@ -24,8 +24,8 @@ Below you will find some photos from the app, and a link to a YouTube video I ma
 
 https://youtu.be/8pKVWtD-hUQ
 
-![image](https://drive.google.com/uc?export=view&id=<141l0EwwoJA8mNDdvTBNOTuPOtX4TH0N8>)
-![image](https://drive.google.com/uc?export=view&id=<1x1rphXKBIao7lgz2GlDfyQpP_o5P8Mcf>)
-![image](https://drive.google.com/uc?export=view&id=<1hBrPBp8RQbhiwobqirrXjVwDgMueOBT9>)
-![image](https://drive.google.com/uc?export=view&id=<1nyBefnO9CqwIwiRhC2jirPWd3g3AhCkN>)
-![image](https://drive.google.com/uc?export=view&id=<1XtPCjS39Ak3aIOSn_bg5SQjuXoMgd-aH>)
+![image](https://drive.google.com/uc?export=view&id=141l0EwwoJA8mNDdvTBNOTuPOtX4TH0N8)
+![image](https://drive.google.com/uc?export=view&id=1x1rphXKBIao7lgz2GlDfyQpP_o5P8Mcf)
+![image](https://drive.google.com/uc?export=view&id=1hBrPBp8RQbhiwobqirrXjVwDgMueOBT9)
+![image](https://drive.google.com/uc?export=view&id=1nyBefnO9CqwIwiRhC2jirPWd3g3AhCkN)
+![image](https://drive.google.com/uc?export=view&id=1XtPCjS39Ak3aIOSn_bg5SQjuXoMgd-aH)
