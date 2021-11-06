@@ -1,6 +1,7 @@
 package com.example.msapps.ui.adapters
 
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,8 +20,8 @@ import java.time.format.DateTimeFormatter
  * Using Diffutils to compare between two articles.
  */
 object ArticleItemDiffCallback : DiffUtil.ItemCallback<Article>() {
-    override fun areItemsTheSame(oldItem: Article, newItem: Article) = oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: Article, newItem: Article) = oldItem.id == newItem.id
+    override fun areItemsTheSame(oldItem: Article, newItem: Article) = oldItem.id == newItem.id && oldItem.isFavorite == newItem.isFavorite
+    override fun areContentsTheSame(oldItem: Article, newItem: Article) = oldItem.id == newItem.id && oldItem.isFavorite == newItem.isFavorite
 }
 
 /**
@@ -57,14 +58,15 @@ class ArticlesViewHolder(itemView: View,
             Glide.with(context).load(article.urlToImage).into(holder_row_article_image)
             //Click listener for the entire object.
             this.setOnClickListener {
-                article.let { articleClicked -> onArticleClickListener.invoke(articleClicked)}
+                article.let { articleClicked -> onArticleClickListener.invoke(articleClicked) }
             }
             //Click listener for the favorites icon.
             holder_row_article_favorite_btn.setOnClickListener {
-                article.let { favoriteClicked -> onFavoriteClickListener.invoke(favoriteClicked)}
+                article.let { favoriteClicked -> onFavoriteClickListener.invoke(favoriteClicked) }
             }
         }
     }
+
 }
 
 /**

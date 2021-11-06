@@ -1,8 +1,7 @@
 package com.example.msapps.repos
 
 import com.example.msapps.models.CategoryResponse
-import com.example.msapps.remote.ApiInterface
-import com.example.msapps.remote.CategoriesEndPoints
+import com.example.msapps.remote.categoriesAPI
 import retrofit2.Response
 
 /**
@@ -15,8 +14,6 @@ interface CategoryRepo {
 internal object CategoryRepoImpl : CategoryRepo {
     private const val API_KEY = "dbb965a3892e4e948ef96bcb3ee21501"
     override suspend fun getAllCategories() =
-            ApiInterface
-                .create(CategoriesEndPoints::class.java)
-                .getAllCategories(API_KEY)
+            categoriesAPI.getAllCategories(API_KEY)
 
 }

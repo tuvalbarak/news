@@ -27,5 +27,4 @@ internal interface ArticleDao {
     //Fetch the required article
     @Query("SELECT * FROM favorites WHERE id = :id")
     fun getFavoriteById(id: String): Article?
-
 }

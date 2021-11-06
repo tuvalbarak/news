@@ -4,7 +4,7 @@
     <string name="categoty_name">Category Name</string>
     <string name="snackbar_add_message">Added Successfully</string>
     <string name="snackbar_remove_message">Removed Successfully</string>
-    <string name="empty_favorites">Your Favorites list appears to be empty </string>
-
+    <string name="no_articles_favorites">Your Favorites list appears to be empty </string>
+    <string name="no_articles_api">Something went wrong :( </string>
 
 </resources>

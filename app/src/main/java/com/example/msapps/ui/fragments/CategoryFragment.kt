@@ -39,7 +39,6 @@ class CategoryFragment : BaseFragment() {
     private fun setupRecyclerView() {
         //Using NavGraph to navigate between Fragments. Sending it to the adapter and it will be invoked after every click on a category.
         val onCategoryClicked: (category: Category) -> Unit = {
-            Log.d(logTag, it.toString())
             view?.findNavController()?.navigate(
                     CategoryFragmentDirections.navActionCategoryFragment(it.toString())
             )

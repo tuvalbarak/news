@@ -1,5 +1,6 @@
 package com.example.msapps.ui.fragments
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,14 +12,13 @@ import com.example.msapps.R
 import com.example.msapps.models.Article
 import com.example.msapps.models.Category
 import com.example.msapps.ui.adapters.ArticlesAdapter
+import com.example.msapps.ui.extensions.displaySnackbar
 import com.example.msapps.ui.extensions.gone
 import com.example.msapps.ui.extensions.show
 import com.example.msapps.utils.States
 import com.example.msapps.viewmodels.ArticleViewModel
 import com.example.msapps.viewmodels.ViewModelFactory
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_articles.*
-import kotlinx.android.synthetic.main.holder_row_article.*
 
 
 class ArticleFragment : BaseFragment() {
@@ -31,37 +31,33 @@ class ArticleFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        fragment_articles_tv_title.text = ArticleFragmentArgs.fromBundle(requireArguments()).category
+        fragment_articles_tv_title.text = ArticleFragmentArgs.fromBundle(requireArguments()).category //Setting the page's title
         setupRecyclerView()
         setupState()
         setupArticlesList()
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     private fun setupRecyclerView() {
         //Using Implicit Intent to allow the user open the article in his browser.
         val onArticleClicked: (article: Article) -> Unit = { article ->
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
-            startActivity(browserIntent)
+
+            Intent(Intent.ACTION_VIEW, Uri.parse(article.url)).apply {
+                    startActivity(this)
+            }
         }
         //A click on the favorite icon will add the article to the favorites list
         val onFavoriteClicked: (article: Article) -> Unit = { article ->
-            article.isFavorite = !article.isFavorite
-            holder_row_article_favorite_btn.isActivated = !holder_row_article_favorite_btn.isActivated
-            Log.d(logTag, article.title.toString())
-
-            if(article.isFavorite) {
-                articleViewModel.addArticleToFavorites(article)
-            } else {
-                articleViewModel.deleteFromFavorites(article)
-            }
+            articleViewModel.onFavoriteToggled(article)
+            //NOTE - I know I shouldn't put notifyDataSetChanged here, but there's a known bug in google's submitList
+            // function (it won't call diffutils if only part of the object was changed - isFavorite), so after I made my research I decided that
+            // this is the best solution for this particular problem. Link to a discussion about the bug -
+            // https://stackoverflow.com/questions/49726385/listadapter-not-updating-item-in-recyclerview
+            (fragment_articles_rv_articles.adapter as ArticlesAdapter).notifyDataSetChanged()
         }
 
         //Binding the adapter with the recyclerview.
         fragment_articles_rv_articles.adapter = ArticlesAdapter(onArticleClicked, onFavoriteClicked)
-    }
-
-    private fun displaySnackbar(message: String) {
-        Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
     }
 
     /**
@@ -105,19 +101,30 @@ class ArticleFragment : BaseFragment() {
         val category = ArticleFragmentArgs.fromBundle(requireArguments()).category
 
         if(!Category.values().map { it.name }.contains(category)) { //Favorites
-            articleViewModel.favoritesList.observe(viewLifecycleOwner, Observer { categoriesList ->
-                (fragment_articles_rv_articles.adapter as ArticlesAdapter).submitList(categoriesList)
-                //If there are not favorites -> display a message.
-                fragment_articles_tv_empty_favorites.apply {
-                    if(categoriesList.isEmpty()) show()
-                    else gone()
-                }
+            articleViewModel.favoritesList.observe(viewLifecycleOwner, Observer { favoritesList ->
+                (fragment_articles_rv_articles.adapter as ArticlesAdapter).submitList(favoritesList)
+                displayMessageEmptyList(favoritesList, resources.getString(R.string.no_articles_favorites))
             })
         } else { //Otherwise -> display the selected category.
             articleViewModel.currCategory = Category.valueOf(category) //Parse the category to a Category type.
-            articleViewModel.articlesList.observe(viewLifecycleOwner, Observer { categoriesList ->
-                (fragment_articles_rv_articles.adapter as ArticlesAdapter).submitList(categoriesList)
+            articleViewModel.articlesList.observe(viewLifecycleOwner, Observer { articlesList ->
+                (fragment_articles_rv_articles.adapter as ArticlesAdapter).submitList(articlesList)
+                displayMessageEmptyList(articlesList, resources.getString(R.string.no_articles_api))
             })
+        }
+    }
+
+    /**
+     * If the retrieved list is empty -> display a message
+     */
+    private fun displayMessageEmptyList(list: List<Article>, message: String) {
+        fragment_articles_tv_empty_favorites.apply {
+            if (list.isEmpty()) {
+                fragment_articles_tv_empty_favorites.text = message
+                show()
+            } else {
+                gone()
+            }
         }
     }
 
