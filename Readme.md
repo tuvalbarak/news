@@ -1,8 +1,8 @@
-News API Application - 
+# News API Application
 
 I used https://newsapi.org to fetch data.
 
-- The app is fully working while all the required functionalities are implemented.
+The app is fully working while all the required functionalities are implemented.
 
 Architecture - 
 - I wrote the app using the MVVM architecture, thus achieving a total separation of layers, which makes the app scalable and gives me the ability to easily change and test each module. 
